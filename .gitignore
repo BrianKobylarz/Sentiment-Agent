@@ -1,0 +1,26 @@
+# Python virtual environment
+venv/
+*/venv/
+env/
+*/env/
+.venv/
+*/.venv/
+
+# Python cache files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# IDE / Editor specific files
+.idea/
+.vscode/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# OS specific files
+.DS_Store
+Thumbs.db

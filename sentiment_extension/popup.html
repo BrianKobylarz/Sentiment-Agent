@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Sentiment Analysis Result</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 15px;
+      min-width: 450px;
+      max-width: 500px;
+      color: #333;
+      background-color: #f9f9f9;
+    }
+    h3, h4 {
+      color: #333;
+      margin-top: 15px;
+      margin-bottom: 10px;
+      padding-bottom: 5px;
+      border-bottom: 1px solid #eee;
+    }
+    h3 { font-size: 16px; }
+    h4 { font-size: 14px; }
+    #analysis-content {
+      opacity: 0;
+      transition: opacity 0.3s ease-in-out;
+    }
+    #error-message, #loading-message {
+        padding: 20px;
+        text-align: center;
+        color: #666;
+        font-style: italic;
+    }
+    .original-text {
+      background: #f0f0f0;
+      padding: 10px;
+      border-radius: 4px;
+      border-left: 3px solid #4688F1;
+      margin-bottom: 15px;
+      font-size: 14px;
+      line-height: 1.4;
+      max-height: 100px;
+      overflow-y: auto;
+    }
+    /* Updated Sentiment Section Styles */
+    .sentiment-section {
+      margin-bottom: 20px;
+    }
+    .sentiment-item {
+        display: flex;
+        align-items: center;
+        margin-bottom: 6px; /* Space between sentiment bars */
+    }
+    .sentiment-label {
+      font-weight: bold;
+      text-transform: capitalize; /* Capitalize labels like 'Positive' */
+      min-width: 75px; /* Keep consistent width */
+      text-align: right;
+      margin-right: 10px;
+      font-size: 13px;
+      color: #555;
+    }
+     .sentiment-track { /* Shared track style */
+        flex-grow: 1;
+        height: 20px; /* Slightly smaller height for sentiment */
+        background: #e0e0e0;
+        border-radius: 20px;
+        overflow: hidden;
+        position: relative;
+    }
+     .sentiment-fill { /* Shared fill style */
+        height: 100%;
+        border-radius: 20px 0 0 20px;
+        position: absolute;
+        top: 0;
+        left: 0;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        font-size: 11px; /* Smaller font for sentiment percentage */
+        font-weight: 700;
+        color: #fff;
+        text-shadow: 0 0 2px rgba(0,0,0,0.4);
+        padding-right: 6px;
+        box-sizing: border-box;
+        white-space: nowrap;
+    }
+    /* Emotional Tone Section Styles */
+    .emotions-section {
+      margin: 20px 0;
+    }
+    .emotion-container {
+      display: flex;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+    .emotion-label {
+      width: 90px; /* Adjusted width */
+      margin-right: 10px;
+      text-align: right;
+      color: #555;
+      font-size: 13px;
+      text-transform: capitalize; /* Capitalize emotion names */
+    }
+    .emotion-track { /* Specific track for emotions */
+      flex-grow: 1;
+      height: 24px;
+      background: #e0e0e0;
+      border-radius: 24px;
+      overflow: hidden;
+      position: relative;
+    }
+    .emotion-fill { /* Specific fill for emotions */
+      height: 100%;
+      border-radius: 24px 0 0 24px;
+      position: absolute;
+      top: 0;
+      left: 0;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      font-size: 12px;
+      font-weight: 700;
+      color: #fff;
+      text-shadow: 0 0 2px rgba(0,0,0,0.4);
+      padding-right: 8px;
+      box-sizing: border-box;
+      white-space: nowrap;
+    }
+    /* Alternatives */
+    .alternative-phrasings { margin-top: 20px; }
+    .phrasing-option {
+      margin-bottom: 10px; padding: 12px; border-radius: 4px; font-size: 14px; line-height: 1.4;
+    }
+    .positive-phrasing { background: #e8f5e9; border: 1px solid #c8e6c9; }
+    .neutral-phrasing { background: #f5f5f5; border: 1px solid #e0e0e0; }
+    .phrasing-label {
+      font-weight: bold; margin-bottom: 5px; font-size: 13px;
+    }
+    .positive-phrasing .phrasing-label { color: #1e8e3e; }
+    .neutral-phrasing .phrasing-label { color: #5f6368; }
+  </style>
+</head>
+<body>
+  <div id="loading-message">Loading analysis...</div>
+  <div id="error-message" style="display: none;"></div>
+  <div id="analysis-content">
+    <h3>Original Text</h3>
+    <div id="original-text-display" class="original-text"></div>
+
+    <div class="sentiment-section">
+        <h4>Overall Sentiment</h4>
+        <div id="sentiment-display">
+            </div>
+    </div>
+
+    <div class="emotions-section">
+        <h4>Emotional Tone (NRC Lexicon)</h4>
+        <div id="emotions-display">
+            </div>
+    </div>
+
+     <div class="alternative-phrasings">
+        <h4>Alternative Phrasings</h4>
+        <div class="phrasing-option positive-phrasing">
+          <div class="phrasing-label">More Positive:</div>
+          <div id="positive-rewrite-display"></div>
+        </div>
+        <div class="phrasing-option neutral-phrasing">
+          <div class="phrasing-label">More Neutral:</div>
+          <div id="neutral-rewrite-display"></div>
+        </div>
+      </div>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
+
+
